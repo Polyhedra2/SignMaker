@@ -14,7 +14,7 @@ class Shield {
 		indentFirstLetter = true,
 		fontSize = "1.4rem",
 		specialBannerType, 
-		bannerType, 
+		bannerType,
 		bannerType2, 
 		bannerPosition
 		} = {}
@@ -193,5 +193,7 @@ Shield.prototype.types = {
 	"WV" : "rec2",
 	"WI" : "WI",
 	"WY" : "WY",
-	"C-" : "C"
+	"C-" : "C",
+	"Australian Shields:": "",
+	"M-" : "M"
 };

@@ -1,0 +1,28 @@
+{
+  "name": "signmaker-electron",
+  "version": "1.0.0",
+  "description": "Highway Sign Maker but in Electron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polygondev/SignMaker.git"
+  },
+  "author": "Polygon",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/polygondev/SignMaker/issues"
+  },
+  "homepage": "https://github.com/polygondev/SignMaker#readme",
+  "devDependencies": {
+    "@electron/packager": "^18.3.2",
+    "electron": "^30.0.1"
+  },
+  "build": {
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

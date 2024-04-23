@@ -663,3 +663,8 @@
 .bannerShieldContainer.WY.three .routeNumber {
 	font-family: "Series C";
 }
+
+.bannerShieldContainer.M .routeNumber {
+	font-family: "Series D";
+	color: #FCCF34FF;
+}
