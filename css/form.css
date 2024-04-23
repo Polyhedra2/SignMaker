@@ -1,17 +1,15 @@
 form {
-	background-color: rgba(255, 255, 255, 0.125);
-
-		width: -moz-max-content;
-		width: -webkit-max-content;
-	width: 100vh;
+	width: 120vh;
 	margin: 1rem auto 0;
 	padding: 0.5rem;
 	text-align: justify;
+    border-radius: 1rem;
 }
 
 form nav {
     width: 100%;
     background-color: rgba(255,255,255, 0.2);
+    border-radius: .5rem;
 }
 
 form nav .scrollmenu {
@@ -20,6 +18,7 @@ form nav .scrollmenu {
     overflow: auto;
     white-space: nowrap;
     float: left;
+
 }
 
 form nav label {
@@ -29,7 +28,7 @@ form nav label {
 
 form nav input[type=button] {
     display: inline-block;
-    border-radius: 0rem;
+    border-radius: .25rem;
     transition: 0s;
     width: auto;
 }
@@ -48,7 +47,7 @@ not(.active) {
 }
 
 label, input[type=button] {
-	font-family: "Highway Gothic";
+	font-family: "Highway Gothic", sans-serif;
 	font-size: 1rem;
 	text-shadow: 0px 0px 20px rgba(40,40,40,0.5);
 	font-weight: 200;
@@ -203,7 +202,7 @@ input[value=Delete]:hover {
 #currentPanel {
     width: auto;
     background: linear-gradient(to bottom, rgba(255,255,255, 0.2), rgba(255,255,255,0.4));
-    border-radius: 0rem 0rem 1rem 2rem;
+    border-radius: 0rem 0rem 1rem 1rem;
     padding: 0.4rem;
 	display: table;
 }
@@ -341,7 +340,7 @@ hr {
 
 #exitTabSettings {
 	background: linear-gradient(0deg, rgba(255,255,255, 0.2), rgba(255,255,255, 0.5));
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     border-bottom-left-radius: 0rem;
     border-bottom-right-radius: 0rem;
     padding: 0.4rem;

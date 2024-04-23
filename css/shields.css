@@ -22,7 +22,7 @@
 .bannerShieldContainer.rec .routeNumber,
 .bannerShieldContainer.rec2 .routeNumber {
 	color: var(--black);
-    font-size: 1.8rem;
+	font-size: 1.8rem;
 	font-family: "Series D";
 	top: 0.15em;
 }
@@ -359,7 +359,7 @@
 .bannerShieldContainer.NS.trunk.two .banner,
 .bannerShieldContainer.NS.conn .banner,
 .bannerShieldContainer.NS.arterial.three .banner {
-	display: none;	
+	display: none;
 }
 
 .bannerShieldContainer.NV .routeNumber {
@@ -532,7 +532,7 @@
 
 .bannerShieldContainer.TX .routeNumber {
 	color: var(--black);
-    font-size: 1.6em;
+	font-size: 1.6em;
 	top: 0.25em;
 }
 .bannerShieldContainer.TX.one .routeNumber,
@@ -545,27 +545,27 @@
 
 .bannerShieldContainer.TX.toll.three .routeNumber {
 	font-family: "Series D";
-    left: 0rem;
-    font-size: 25px;
-    letter-spacing: 0;
-    top: -0.08rem;
+	left: 0rem;
+	font-size: 25px;
+	letter-spacing: 0;
+	top: -0.08rem;
 }
 
 .bannerShieldContainer.TX.toll.four .routeNumber {
 	font-family: "Series C";
-    left: 0rem;
-    font-size: 24px;
-    letter-spacing: 0;
-    top: 0rem;
+	left: 0rem;
+	font-size: 24px;
+	letter-spacing: 0;
+	top: 0rem;
 }
 
 .bannerShieldContainer.TX.toll .routeNumber {
 	color: var(--white);
-    top: -0.3rem;
-    font-size: 30px;
-    font-family: "Series E";
-    letter-spacing: 0.1rem;
-    left: 0.05rem;
+	top: -0.3rem;
+	font-size: 30px;
+	font-family: "Series E";
+	letter-spacing: 0.1rem;
+	left: 0.05rem;
 }
 
 .bannerShieldContainer.TX.express .routeNumber {
