@@ -4,3 +4,8 @@
 
 # Windows
 Thumbs.db
+
+# random and large shit that you probably don't need
+node_modules
+out/1.0
+out
