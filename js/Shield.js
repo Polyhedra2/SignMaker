@@ -8,16 +8,16 @@ class Shield {
 	 * @param {string} [bannerPosition] - Where to place the directional banner relative to the shield.
 	 */
 	constructor({
-		type = "I", 
-		routeNumber = "1", 
-		to = false, 
-		indentFirstLetter = true,
-		fontSize = "1.4rem",
-		specialBannerType, 
-		bannerType,
-		bannerType2, 
-		bannerPosition
-		} = {}
+					type = "I",
+					routeNumber = "1",
+					to = false,
+					indentFirstLetter = true,
+					fontSize = "1.4rem",
+					specialBannerType,
+					bannerType,
+					bannerType2,
+					bannerPosition
+				} = {}
 	) {
 		if (Object.keys(this.types).includes(type)) {
 			this.type = type;
@@ -29,26 +29,26 @@ class Shield {
 		this.to = to;
 		this.indentFirstLetter = indentFirstLetter;
 		this.fontSize = fontSize;
-		
+
 		if (this.bannerTypes.includes(bannerType)) {
 			this.bannerType = bannerType;
 		} else {
 			this.bannerType = this.bannerTypes[0];
 		}
-        if (this.bannerTypes.includes(bannerType2)) {
+		if (this.bannerTypes.includes(bannerType2)) {
 			this.bannerType2 = bannerType2;
 		} else {
 			this.bannerType2 = this.bannerTypes[0];
 		}
-        
+
 		if (this.bannerPositions.includes(bannerPosition)) {
 			this.bannerPosition = bannerPosition;
 		} else {
 			this.bannerPosition = this.bannerPositions[0];
 		}
-        
+
 		let selectedSpecialBannerType = this.specialBannerTypes[type][specialBannerType];
-		
+
 		if (selectedSpecialBannerType == undefined) {
 			this.specialBannerType = this.bannerTypes[0];
 		} else {
@@ -58,12 +58,12 @@ class Shield {
 				this.specialBannerType = this.bannerTypes[0];
 			}
 		}
-		
+
 	}
 }
 
 Shield.prototype.specialBannerTypes = {
-    ["AZ"] : {
+	["AZ"] : {
 		["Loop"] : 3
 	},
 	["FL"] : {

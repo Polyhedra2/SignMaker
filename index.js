@@ -1,13 +1,17 @@
+// Electron Loader Script
+// Code sets up window (and closing)
+
+
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
 function createWindow () {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 900,
+        height: 750, // width of the main control panel appears to be linked to height not width for some reason
     })
 
-    win.loadFile('index.html') // Assuming the GUI files are in a folder called gui
+    win.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
