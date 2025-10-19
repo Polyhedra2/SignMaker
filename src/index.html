@@ -1,0 +1,559 @@
+<html lang="en" data-theme="light">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="author" content="Brendon Strowe, Maplou, JK_Potato/Computer">
+		<meta name="description" content="The ULTIMATE Sign Maker for highways, expressways, and everything!">
+		<title>Highway Sign Maker</title>
+		<link rel="icon" type="image/x-icon" href="img/other-symbols/icon.png">
+		<!-- CSS Links -->
+		<link href="css/page.css" rel="stylesheet" type="text/css">
+		<link href="css/signs.css" rel="stylesheet" type="text/css">
+		<link href="css/shields.css" rel="stylesheet" type="text/css">
+		<link href="css/form.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+		<!-- Page Links -->
+		<script src="https://cdn.jsdelivr.net/gh/peterhry/CircleType@2.3.1/dist/circletype.min.js"></script>
+		<script src="js/HtmlToImage.js" type="text/javascript"></script>
+		<script src="js/lib.js" type="text/javascript"></script>
+		<script src="js/Shield.js" type="text/javascript"></script>
+		<script src="js/Sign.js" type="text/javascript"></script>
+		<script src="js/ExitTab.js" type="text/javascript"></script>
+		<script src="js/Panel.js" type="text/javascript"></script>
+		<script src="js/Post.js" type="text/javascript"></script>
+		<script src="js/Arrows.js" type="text/javascript"></script>
+		<script src="js/Control.js" type="text/javascript"></script>
+		<script src="js/SubPanels.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<script src="js/form.js" type="text/javascript" defer></script>
+	</head>
+	<body onload="app.init();">
+		<main>
+			<div id="postContainer">
+				<div class="post"></div>
+				<div id="panelContainer"></div>
+				<div class="post"></div>
+			</div>
+		</main>
+		<div id="modalHolder">
+			<dialog id="welcomeToSignMaker">
+				<img src="img/other-symbols/Banner.png">
+				<h3>Welcome to SignMaker! <span class="warning">WORK IN PROGRESS</span>
+				</h3>
+				<p>SignMaker is a web-based program that allows you to make realistic highway signs that exist in the United States and Canada! We are based off the roots of Kurumi's Sign Maker, designed to be easy and efficient; only this time, with a <b>whole lot more features.</b> I hope you enjoy my little creation! </p>
+				<div class="options">
+					<a href="https://github.com/JKPotato-Computer/SignMaker/releases">
+						<button id="changelog">Changelog</button>
+					</a>
+					<a href="https://discord.gg/yJBWggf7p4">
+						<button id="joinDiscordServer">Discord Server</button>
+					</a>
+					<a href="https://github.com/JKPotato-Computer/SignMaker/wiki">
+						<button id="viewTutorial">Guide / Tutorial</button>
+					</a>
+					<button id="closeWelcome">Get signing!</button>
+				</div>
+			</dialog>
+			<dialog id="downloadContent">
+				<div id="downloadContents">
+					<h3>Download Sign</h3>
+					<div id="fileTypeOptions">
+						<label for="PNG" id="fileTypeLabel">Save As: </label>
+						<button id="PNG" class="activated" onclick="app.updateFileType(`png`)">PNG</button>
+						<button id="SVG" class="" onclick="app.updateFileType(`png`)">SVG</button>
+						<button id="JSON" class="" onclick="app.updateFileType(`json`)">JSON</button>
+					</div>
+					<br>
+					<label for="entirePost" id="entirePostLabel">Entire Post</label>
+					<input type="checkbox" id="entirePost" name="entirePost" value="entirePost" onchange="app.updatePreview();" checked="">
+					<br>
+					<div id="singularPanel">
+						<label for="selectPanel" id="selectPanelLabel">Panel Number</label>
+						<input type="number" id="selectPanel" name="selectPanel" onchange="app.updatePreview();" min="1" step="1" value="1">
+						<br>
+					</div>
+					<div class="options">
+						<button id="cancelDownload">Cancel</button>
+						<button id="download" onclick="app.downloadSign()">Download</button>
+					</div>
+				</div>
+				<div id="downloadPreview"></div>
+			</dialog>
+		</div>
+		<form name="signMaker">
+			<div class="modals">
+				<div class="sMModal postConfig" data-current-menu="sMPostSettings">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">signpost</span> Post Settings
+						</div>
+						<div data-tab="sMPostSettings" class="sMModalTab selected">Settings</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMPostSettings">
+							<div>
+								<label for="postPosition" data-toolTip="Controls the type of post that will display on the screen.">Post Position: </label>
+								<select id="postPosition" onchange="app.readForm();"></select>
+								<br>
+								<label for="showPost" id="showPostLabel"> Hide Post: </label>
+								<input type="checkbox" id="showPost" name="showPost" value="showPost" onchange="app.readForm();">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sMModal panelStyleConfig" data-current-menu="sMPanelAppearance">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">tune</span> Panel Style
+						</div>
+						<div data-tab="sMPanelAppearance" class="sMModalTab selected">Appearance</div>
+						<div data-tab="sMPanelPadding" class="sMModalTab">Padding</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMPanelAppearance">
+							<div>
+								<label for="panelColor">Panel Color: </label>
+								<select id="panelColor" onchange="app.readForm();"></select>
+								<br>
+								<label for="panelCorner">Panel Corners: </label>
+								<select id="panelCorner" onchange="app.readForm();"></select>
+							</div>
+						</div>
+						<div id="sMPanelPadding" class="tabHidden">
+							<div>
+								<label for="paddingTop">Padding Top: </label>
+								<input type="number" id="paddingTop" value=".5" placeholder=".5" step=".01" min="0" max="20" onblur="app.readForm();">
+								<label for="paddingRight">Padding Right: </label>
+								<input type="number" id="paddingRight" value=".75" placeholder=".75" step=".01" min="0" max="20" onblur="app.readForm();">
+								<br>
+								<label for="paddingBottom">Padding Bottom: </label>
+								<input type="number" id="paddingBottom" value=".5" placeholder=".5" step=".01" min="0" max="20" onblur="app.readForm();">
+								<label for="paddingLeft">Padding Left: </label>
+								<input type="number" id="paddingLeft" value=".75" placeholder=".75" step=".01" min="0" max="20" onblur="app.readForm();">
+								<button id="resetPadding" class="resetClass" onclick="app.resetPadding();">Reset to Default</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sMModal exitTabConfig" data-current-menu="sMExitTabSetting" style="">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">folder</span> Exit Tabs
+						</div>
+						<nav class="listNav">
+							<div class="scrollMenu" id="exitTabList">
+								<select id="tab_edit1" class=" active">
+									<option value="-1">Exit Tab </option>
+								</select>
+							</div>
+							<div class="listNavOptions">
+								<button onclick="app.newNestExitTab();">++</button>
+								<button onclick="app.deleteNestExitTab();">--</button>
+								<button onclick="app.newExitTab();">+</button>
+								<button onclick="app.removeExitTab();">-</button>
+								<button onclick="app.duplicateExitTab();"><span class="material-symbols-outlined">content_copy</span></button>
+								<label for="exitTabNumber">No:</label>
+								<input type="text" id="exitTabNumber" name="exitTabNumber" placeholder="1" step="1" onchange="app.changeEditingExitTab(Math.floor(document.getElementById(parseInt(this.value.toString().split(`:`)[0]),parseInt(this.value.toString().split(`:`)[1]))));" min="1">
+							</div>
+						</nav>
+					</nav>
+					<nav class="sMModalBar sMModalSubBar">
+						<div data-tab="sMExitTabSetting" class="sMModalTab selected">Settings</div>
+						<div data-tab="sMExitTabStyles" class="sMModalTab">Styles</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMExitTabSetting">
+							<div>
+								<legend>Main Settings</legend>
+								<input type="text" id="exitNumber" name="exitNumber" placeholder="Exit 00" onchange="app.readForm();">
+								<select id="exitTabPosition" onchange="app.readForm();"></select>
+								<select id="exitTabWidth" onchange="app.readForm();"></select>
+								<select id="exitColor" onchange="app.readForm();"></select>
+								<select id="exitVariant" onchange="app.readForm();"></select>
+							</div>
+							<div>
+								<legend>Extra Settings</legend>
+								<label for="exitFont" id="exitFontLabel">FHWA Font:</label>
+								<input type="checkbox" name="exitFont" id="exitFont" value="exitFont" onchange="app.readForm();">
+								<label for="showLeft" id="showLeftLabel">Left:</label>
+								<input type="checkbox" id="showLeft" value="showLeft" name="showLeft" onchange="app.readForm();">
+								<label for="fullBorder">Full Border: </label>
+								<input type="checkbox" id="fullBorder" value="fullBorder" name="fullBorder" onchange="app.readForm();">
+								<label for="topOffset">Top Offset:</label>
+								<input type="checkbox" id="topOffset" value="topOffset" name="topOffset" onchange="app.readForm();" checked="">
+								<br>
+								<label for="borderThickness">Border Thickness (rem): <input type="button" class="resetBtn clear" id="borderReset" value="Reset">
+								</label>
+								<input type="range" id="borderThickness" min="0.01" max="0.2" step="0.01" value="0.2" oninput="document.getElementById(`borderValue`).innerHTML = this.value;" onchange="app.readForm();">
+								<label for="borderThickness" id="borderValue" style="text-align: left; margin: 0; font-size: 2rem; width: auto;">0.2</label>
+								<label for="minHeight">Minimum Height (rem): <input type="button" class="resetBtn clear" id="minimumReset" value="Reset">
+								</label>
+								<input type="range" id="minHeight" min="0" max="5" value="2.25" step="0.05" oninput="document.getElementById(`minValue`).innerHTML = this.value" onchange="app.readForm();">
+								<label for="minHeight" id="minValue" style="text-align: left; margin: 0; font-size: 2rem; widtH: auto;">2.25</label>
+								<br>
+								<label for="fontSize">Text Size (px): <input type="button" class="resetBtn clear" id="sizeReset" value="Reset">
+								</label>
+								<input type="range" id="fontSize" min="10" max="100" value="18" step="1" oninput="document.getElementById(`fontValue`).innerHTML = this.value" onchange="app.readForm();">
+								<label for="fontSize" id="fontValue" style="text-align: left; margin: 0; font-size: 2rem; widtH: auto;">16</label>
+							</div>
+						</div>
+						<div id="sMExitTabStyles" class="tabHidden">
+							<div>
+								<legend>Toll Settings</legend>
+								<div id="tollSettings" style="display: block;">
+									<input type="radio" name="tollOption" id="ezPass" class="radioOption" value="EZPass" onchange="app.readForm();">
+									<label for="ezPass" style="text-align: left;">E-ZPASS</label>
+									<input type="radio" name="tollOption" id="FASTrak" class="radioOption" value="FASTrak" onchange="app.readForm();">
+									<label for="FASTrak" style="text-align: left;">FASTrak</label>
+									<input type="radio" name="tollOption" id="SUNPass" class="radioOption" value="SUNPass" onchange="app.readForm();">
+									<label for="SUNPass" style="text-align: left;">SunPass</label>
+									<input type="radio" name="tollOption" id="custom" class="radioOption" value="custom" onchange="app.readForm();">
+									<label for="custom" style="text-align: left;">Custom Tag <br>
+										<input type="text" id="customTag" name="customTag" placeholder="Tag" onchange="app.readForm();">
+									</label>
+								</div>
+							</div>
+							<fieldset style="display: none;">
+								<legend>Icon Settings</legend>
+								<div id="iconSettings">
+									<label for="iconSelect">Select icon:</label>
+									<select id="iconSelect"></select>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+				<div class="sMModal subPanelConfig" data-current-menu="sMSPSettings" style="">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">description</span> Subpanels
+						</div>
+						<nav class="listNav">
+							<div class="scrollMenu horizontal-scroll-on-wheel" id="subPanelList">
+								<button id="global" onclick="app.changeEditingSubPanel(-1);" class="">Global</button>
+								<button id="sub_edit1" class="active">SubPanel 1</button>
+							</div>
+							<div class="listNavOptions">
+								<button onclick="app.newSubPanel();">+</button>
+								<button onclick="app.removeSubPanel();">-</button>
+								<button onclick="app.duplicateSubPanel();"><span class="material-symbols-outlined">content_copy</span></button>
+								<label for="subPanelNumber">No:</label>
+								<input type="number" id="subPanelNumber" name="subPanelNumber" placeholder="1" step="1" onchange="app.changeEditingSubPanel(Math.floor(document.getElementById(this.value - 1)));" min="1">
+							</div>
+						</nav>
+					</nav>
+					<nav class="sMModalBar sMModalSubBar">
+						<div data-tab="sMSPSettings" class="sMModalTab selected">Settings</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMSPSettings">
+							<div>
+								<div class="shields" id="shields"></div>
+								<input type="button" value="New Shield" onclick="app.newShield();">
+								<input id="clear" type="button" value="Clear all Shields" onclick="app.clearShields();">
+								<br>
+								<br>
+								<!-- Control Cities Revision -->
+								<div id="sMSPTextEditor">
+									<div id="sMSPCreate">
+										<span id="SMSPSelectLabel">Selected: Row 1</span>
+										<button id="sMSPCreateRow" onclick="app.newRow();"><span class="material-symbols-outlined">add</span> New</button>
+										<button id="sMSPDuplicateRow" onclick="app.dupRow();"><span class="material-symbols-outlined">content_copy</span> Duplicate</button>
+										<button id="sMSPDeleteSelectedRow" onclick="app.delRow();" disabled><span class="material-symbols-outlined">delete</span> Selected</button>
+									</div>
+									<div id="sMSPTextList">
+										<div data-row="1" class="sMControlRow selected">
+											<button class="textEditorBlock sdCtrlText selected">Standard Control Text</button>
+											<button class="textEditorBlock sdBlocker">---------------------</button>
+										</div>
+										<div data-row="2" class="sMControlRow">
+											<button class="textEditorBlock sdShield">I-111</button>
+											<button class="textEditorBlock sdAdvisory">Advisory Message</button>
+										</div>
+										<div data-row="3" class="sMControlRow">
+											<button class="textEditorBlock sdIcon">✈</button>
+											<button class="textEditorBlock sdActionMessage">Action Message</button>
+										</div>
+									</div>
+									<div id="sMSPElement">
+										<span id="SMSPElementLabel">Selected: Block 1</span>
+										<div class="SMSPNewElementHolder">
+											<span>New: </span>
+											<select id="sMSPElementSelect" style="width: 30%;"></select>
+											<button id="sMSPCreateElement" onclick="app.newControlElem(document.querySelector('#sMSPElementSelect').value);"><span class="material-symbols-outlined">add</span> Add</button>
+											<button id="sMSPDeleteSelectedBlock" onclick="app.delControlElem();"><span class="material-symbols-outlined" disabled>delete</span> Selected</button>
+										</div>
+									</div>
+									<div id="smSPProperties">
+										<div data-property="sdCtrlText" class="">
+											<label for="sdCtrlText_textContent">Content:</label>
+											<input type="text" id="sdCtrlText_textContent" class="sdTextEditorWide" placeholder="New Sign" value="New Sign"/>
+											<br>
+											<label for="sdCtrlText_backgroundColor">BG:</label>
+											<select id="sdCtrlText_backgroundColor"></select>
+											<label for="sdCtrlText_fontFamily">Font:</label>
+											<select id="sdCtrlText_fontFamily"></select>
+											<br>
+											<label for="sdCtrlText_spacing" data-toolTip="Spacing of the Control Text element on the left-right axis">Spacing:</label>
+											<input type="number" id="sdCtrlText_spacing" placeholder="0" max="20" min="0" step="1" value="0"/>
+											<label for="sdCtrlText_fontSize">Font Size (%):</label>
+											<input type="number" id="sdCtrlText_fontSize" placeholder="100" max="150" min="50" step="1" value="100" />
+											<br>
+											<label for="sdCtrlText_smallCapitals">Small Capitals:</label>
+											<input type="checkbox" id="sdCtrlText_smallCapitals" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdCtrlText_firstLetterSize" data-toolTip="First Letter Size (%)" placeholder="120" max="150" min="50" step="1" value="120" />
+											<label for="sdCtrlText_alignment">Alignment: </label>
+											<select id="sdCtrlText_alignment"></select>
+											<br>
+											<label for="sdCtrlText_useNumeralFormatting">Enlarge Numerals:</label>
+											<input type="checkbox" id="sdCtrlText_useNumeralFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdCtrlText_numeralFormattingSize" data-toolTip="Relative Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+											<label for="sdCtrlText_useBannerFormatting">Enlarge Banners:</label>
+											<input type="checkbox" id="sdCtrlText_useBannerFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdCtrlText_bannerFormattingSize" data-toolTip="Relative Size (%)" placeholder="100" max="150" min="50" step="1" value="100"/>
+											<input type="number" class="sdTextEditorSmall hidden" id="sdCtrlText_bannerFirstLetterSize" data-toolTip="First Letter Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+										</div>
+										
+										<div data-property="sdBlocker" class="hidden">
+											<label for="sdBlocker_dividerWidth">Divider Width: </label>
+											<input type="number" id="sdBlocker_dividerWidth" placeholder="100" min="0" max="100" value="100" step="1" />
+											<select id="sdBlocker_dividerMeasurement" data-toolTip="Unit (%/rem)" class="sdTextEditorSmall"></select>
+											<br>
+											<label for="sdBlocker_dividerHeight">Divider Height (rem): </label>
+											<input type="number" id="sdBlocker_dividerHeight" placeholder=".5" max="2" min="0" value=".5" step=".1" />
+											<label for="sdBlocker_alignment">Alignment: </label>
+											<select id="sdBlocker_alignment"></select>
+										</div>
+										
+										<div data-property="sdShield" class="hidden">
+											<label for="sdShield_shieldBase">Shield: </label>
+											<select id="sdShield_shieldBase" data-toolTip="Shield Type"></select>
+											<select id="sdShield_shieldType" data-toolTip="Shield Variant"></select>
+											<input type="text" id="sdShield_routeNumber" data-toolTip="Route Number"/>
+										</div>
+										
+										<div data-property="sdAdvisory" class="hidden">
+											<label for="sdAdvisory_textContent">Content:</label>
+											<input type="text" id="sdAdvisory_textContent" class="sdTextEditorWide" placeholder="New Sign" value="New Sign"/>
+											<br>
+											<label for="sdAdvisory_backgroundColor">BG:</label>
+											<select id="sdAdvisory_backgroundColor"></select>
+											<label for="sdAdvisory_fontFamily">Font:</label>
+											<select id="sdAdvisory_fontFamily"></select>
+											<br>
+											<label for="sdAdvisory_spacing" data-toolTip="Spacing of the Control Text element on the left-right axis">Spacing:</label>
+											<input type="number" id="sdAdvisory_spacing" placeholder="0" max="20" min="0" step="1" value="0"/>
+											<label for="sdAdvisory_fontSize">Font Size (%):</label>
+											<input type="number" id="sdAdvisory_fontSize" placeholder="100" max="150" min="50" step="1" value="100" />
+											<br>
+											<label for="sdAdvisory_borderRadius">Border Radius (px): </label>
+											<input type="number" id="sdAdvisory_borderRadius" placeholder="4" max="16" min="0" step="1" value="4" />
+											<label for="sdAdvisory_alignment">Alignment: </label>
+											<select id="sdAdvisory_alignment"></select>
+											<br>
+											<label for="sdAdvisory_useNumeralFormatting">Enlarge Numerals:</label>
+											<input type="checkbox" id="sdAdvisory_useNumeralFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdAdvisory_numeralFormattingSize" data-toolTip="Relative Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+											<label for="sdAdvisory_useBannerFormatting">Enlarge Banners:</label>
+											<input type="checkbox" id="sdAdvisory_useBannerFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdAdvisory_bannerFormattingSize" data-toolTip="Relative Size (%)" placeholder="100" max="150" min="50" step="1" value="100"/>
+											<input type="number" class="sdTextEditorSmall hidden" id="sdAdvisory_bannerFirstLetterSize" data-toolTip="First Letter Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+										</div>
+										
+										<div data-property="sdIcon" class="hidden">
+											<label for="sdIcon_icon">Icon: </label>
+											<select id="sdIcon_icon"></select>
+											<label for="sdIcon_iconSize">Size (%): </label>
+											<input type="number" id="sdIcon_iconSize" placeholder="100" min="50" max="150" step="1" value="100" />
+											<br>
+											<label for="sdIcon_backgroundColor">BG Color: </label>
+											<select id="sdIcon_backgroundColor"></select>
+											<br>
+											<label for="sdIcon_border">Border: </label>
+											<input type="checkbox" id="sdIcon_border" />
+											<select id="sdIcon_borderColor" data-toolTip="Border Color"></select>
+											<input type="number" id="sdIcon_borderRadius" data-toolTip="Border Radius" class="sdTextEditorSmall" value="4" placeholder="4" step="1" min="0" max="8" />
+											<br>
+											<label for="sdIcon_spacing">Spacing:</label>
+											<input type="number" id="sdIcon_spacing" data-toolTip="Spacing" min="0" max="8" value="4" placeholder="4" />
+										</div>
+										
+										<div data-property="sdActionMessage" class="hidden">
+											<label for="sdActionMessage_textContent">Content:</label>
+											<input type="text" id="sdActionMessage_textContent" class="sdTextEditorWide" placeholder="New Sign" value="New Sign"/>
+											<br>
+											<label for="sdActionMessage_backgroundColor">BG:</label>
+											<select id="sdActionMessage_backgroundColor"></select>
+											<label for="sdActionMessage_fontFamily">Font:</label>
+											<select id="sdActionMessage_fontFamily"></select>
+											<br>
+											<label for="sdActionMessage_spacing" data-toolTip="Spacing of the Control Text element on the left-right axis">Spacing:</label>
+											<input type="number" id="sdActionMessage_spacing" placeholder="0" max="20" min="0" step="1" value="0"/>
+											<label for="sdActionMessage_fontSize">Font Size (%):</label>
+											<input type="number" id="sdActionMessage_fontSize" placeholder="100" max="150" min="50" step="1" value="100" />
+											<br>
+											<label for="sdActionMessage_useNumeralFormatting">Enlarge Numerals:</label>
+											<input type="checkbox" id="sdActionMessage_useNumeralFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdActionMessage_numeralFormattingSize" data-toolTip="Relative Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+											<label for="sdActionMessage_useBannerFormatting">Enlarge Banners:</label>
+											<input type="checkbox" id="sdActionMessage_useBannerFormatting" />
+											<input type="number" class="sdTextEditorSmall hidden" id="sdActionMessage_bannerFormattingSize" data-toolTip="Relative Size (%)" placeholder="100" max="150" min="50" step="1" value="100"/>
+											<input type="number" class="sdTextEditorSmall hidden" id="sdActionMessage_bannerFirstLetterSize" data-toolTip="First Letter Size (%)" placeholder="120" max="150" min="50" step="1" value="120"/>
+											<br>
+											<label for="sdActionMessage_alignment">Alignment: </label>
+											<select id="sdActionMessage_alignment"></select>
+										</div>
+									</div>
+								</div>
+								<div style="display: block;">
+									<!-- Control Cities -->
+									<label for="controlText" id="controlCitiesLabel">Control Cities:</label>
+									<textarea id="controlText" wrap="hard" rows="4" onblur="app.readForm();"></textarea>
+									<br>
+									<!-- Action Message -->
+									<label for="actionMessage" id="actionMessageLabel">Action Message: </label>
+									<input type="text" id="actionMessage" name="actionMessage" placeholder="Action Message" onblur="app.readForm();">
+									<br>
+									<label for="outActionMessage" id="outActionMessageLabel" class="invisible">Advisory Message:</label>
+									<input type="checkbox" id="outActionMessage" name="outActionMessage" class="invisible" value="outActionMessage" onchange="app.readForm();" checked="">
+									<input type="text" class="invisible" id="g_actionMessage" name="g_actionMessage" placeholder="Action Message" onblur="app.readForm();">
+									<br>
+									<label for="shieldsPosition">Shield Positions:</label>
+									<select id="shieldsPosition" onchange="app.readForm();"></select>
+									<label for="shieldBacks" id="shieldBacksLabel">Shield Backs: </label>
+									<input type="checkbox" id="shieldBacks" name="shieldBacks" value="shieldBacks" onchange="app.readForm();">
+								</div>
+							</div>
+							<div>
+								<legend>Global Positioning</legend>
+								<label for="globalPosition" id="globalPositionLabel" class="invisible">Global Position:</label>
+								<select id="globalPosition" class="invisible" onchange="app.readForm();"></select>
+							</div>
+							<div>
+								<legend>Extra Subpanel Settings</legend>
+								<label for="subPanelHeight" id="subPanelHeightLabel" style="display: none;">Divider Height: </label>
+								<input type="number" id="subPanelHeight" name="subPanelHeight" onblur="app.readForm();" style="display: none;">
+								<br>
+								<label for="subPanelLength" id="subPanelLengthLabel" style="display: none;">Length: </label>
+								<input type="number" id="subPanelLength" name="subPanelLength" onblur="app.readForm();" style="display: none;">
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sMModal guideArrowConfig" data-current-menu="sMStandardArrows" style="">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">explore</span> Guide Arrows
+						</div>
+						<div data-tab="sMStandardArrows" class="sMModalTab selected">Standard Arrows</div>
+						<div data-tab="sMAPL" class="sMModalTab">APL (Arrow Per Lane)</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMStandardArrows">
+							<div>
+								<legend>Standard Arrows</legend>
+								<label for="guideArrow">Arrows:</label>
+								<select id="guideArrow" onchange="app.readForm();"></select>
+								<input type="number" id="guideArrowLanes" name="guideArrowLanes" min="1" max="6" onblur="app.readForm();">
+								<br>
+								<label id="arrowLocationLabel" for="arrowLocations">Arrow Location:</label>
+								<select id="arrowLocations" onchange="app.readForm();"></select>
+								<br>
+								<label id="exitOnlyDirectionLabel" for="exitOnlyDirection" class="invisible">Direction:</label>
+								<select id="exitOnlyDirection" onchange="app.readForm();" class="invisible"></select>
+								<label id="showExitOnlyLabel" for="showExitOnly" class="invisible">Hide Label</label>
+								<input type="checkbox" id="showExitOnly" name="showExitOnly" value="undefined" onchange="app.readForm();" class="invisible">
+								<br>
+								<label id="exitOnlyPaddingLabel" for="exitOnlyPadding" class="invisible">Spacing: <input type="button" class="resetBtn clear" id="paddingReset" value="Reset">
+								</label>
+								<input id="exitOnlyPadding" type="range" min="0" max="2" step="0.05" value="0.25" oninput="document.querySelector('#paddingValue').textContent = this.value;" onchange="app.readForm();" class="invisible">
+								<label for="exitOnlyPadding" id="paddingValue" style="text-align: left; margin: 0; font-size: 2rem; width: auto;" class="invisible">0.25</label>
+								<hr>
+								<label for="otherSymbol">Other Bottom Symbols:</label>
+								<select id="otherSymbol" onchange="app.readForm();"></select>
+								<input type="text" id="oSNum" name="oSNum" placeholder="Exit Num" onblur="app.readForm();">
+							</div>
+						</div>
+						<div id="sMAPL" class="tabHidden"></div>
+					</div>
+				</div>
+				<div class="sMModal globalConfig" data-current-menu="sMGSettings">
+					<nav class="sMModalBar">
+						<div class="sMModalTitle">
+							<span class="material-symbols-outlined">globe</span> Global Settings
+						</div>
+						<div data-tab="sMGSettings" class="sMModalTab selected">Settings</div>
+					</nav>
+					<div class="sMModalContent">
+						<div id="sMGSettings">
+							<div>
+								<legend>Settings</legend>
+								<label for="fontChange" id="fontChangeLabel">FHWA Font </label>
+								<input type="checkbox" id="fontChange" name="fontChange" value="fontChange" onchange="app.readForm();">
+								<br>
+								<label for="secondExitOnly" id="secondExitOnlyLabel">2nd Exit Only Design </label>
+								<input type="checkbox" id="secondExitOnly" name="secondExitOnly" value="secondExitOnly" onchange="app.readForm();">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<nav id="sMConfigBar" data-current-menu="globalConfig">
+				<button id="postConfig" class="sMConfigOption" data-toolTip="Post Settings">
+					<span class="material-symbols-outlined"> signpost </span>
+				</button>
+				<div class="sMConfigOption" data-toolTip="Current Panel">
+					<div id="panelSelector" class="hitbox"></div>
+					<span id="currentlySelectedPanel">Panel 1</span>
+					<span class="material-symbols-outlined"> expand_more </span>
+					<div id="panelSelect" class="panelSelector">
+						<h5>Current Panel</h5>
+						<nav id="panelOptions">
+							<button class="shiftButton" onclick="app.shiftLeft();"> &lt;&lt; </button>
+							<input type="number" class="num" id="panelNumber" name="PanelNumber" placeholder="1" step="1" onchange="app.changeEditingPanel((Math.floor(this.value)) - 1)" min="1">
+							<button class="shiftButton" onclick="app.shiftLeft();"> &gt;&gt;</button>
+						</nav>
+						<div id="panelList" class="scrollMenu">
+							<button id="edit1" class="active">Panel 1</button>
+						</div>
+						<div id="numPanelOptions">
+							<button id="newPanel" class="new">++</button>
+							<button id="deletePanel" class="del">--</button>
+							<button id="duplicatePanel" class="dup"><span class="material-symbols-outlined">content_copy</span></button>
+						</div>
+					</div>
+				</div>
+				<button id="panelStyleConfig" class="sMConfigOption">
+					<span class="material-symbols-outlined"> tune </span>
+					<span>Panel Style</span>
+				</button>
+				<button id="exitTabConfig" class="sMConfigOption">
+					<span class="material-symbols-outlined"> folder </span>
+					<span>Exit Tabs</span>
+				</button>
+				<button id="subPanelConfig" class="sMConfigOption">
+					<span class="material-symbols-outlined"> description </span>
+					<span>Subpanels</span>
+				</button>
+				<button id="guideArrowConfig" class="sMConfigOption">
+					<span class="material-symbols-outlined"> explore </span>
+					<span>Guide Arrows</span>
+				</button>
+				<button id="globalConfig" class="sMConfigOption">
+					<span class="material-symbols-outlined"> globe </span>
+					<span>Global Config</span>
+				</button>
+				<button id="export" class="sMConfigOption" data-toolTip="Export">
+					<span class="material-symbols-outlined"> download </span>
+				</button>
+
+				<button id="hideConfig" class="sMConfigOption" data-toolTip="Hide">
+					<span class="material-symbols-outlined"> hide </span>
+				</button>
+			</nav>
+		</form>
+	</body>
+</html>

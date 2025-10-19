@@ -1,0 +1,786 @@
+.sMConfigOption > span:not(.material-symbols-outlined, .toolTip) {
+  font-size: 1rem;
+  top: 2px;
+  position: relative;
+}
+
+nav#sMConfigBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  align-items: center;
+  background: #ffffff;
+  width: max-content;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  height: max-content;
+  z-index: 1;
+  border-radius: 0.6rem;
+}
+
+:root[data-theme="dark"] .sMConfigOption:not(.selected) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sMConfigOption {
+  background: rgb(0, 95, 77);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+  position: relative; /* for tooltips / mini menus */
+  font-family: "Overpass";
+  color: #ffffff;
+  line-height: 0;
+  border-radius: 0.4rem;
+}
+
+.sMConfigOption.selected {
+  background: var(--selectedColor);
+  transition: 0s;
+}
+
+.sMModal {
+  max-width: 70vh;
+  background: var(--hotbarColor);
+  display: none;
+  min-width: 45vh;
+  width: max-content;
+  height: max-content;
+  border-radius: 0.6rem;
+}
+
+.sMModalContent {
+  padding: 1rem;
+  max-height: 80vh;
+  overflow-x: auto;
+}
+
+.modals {
+  width: max-content;
+  inset: 1.5rem;
+  position: fixed;
+  height: max-content;
+  max-height: 87.5%;
+}
+
+#export {
+  background-color: rgb(252, 207, 52);
+  color: black;
+}
+
+#export.hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+span.toolTip {
+  position: fixed;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  font-size: 13px;
+  opacity: 1;
+  transition: 0.25s ease-in-out transform, 0.25s ease-in-out opacity;
+  z-index: 3;
+  font-family: "Inter";
+  width: max-content;
+  max-width: 200px;
+}
+
+label > .toolTip {
+  font-family: "Inter";
+}
+
+.modals label {
+  position: relative;
+}
+
+label span.toolTip,
+.listNavOptions button .toolTip {
+  width: 8rem;
+  text-align: right;
+  left: 4rem;
+  height: max-content;
+  top: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+@keyframes appear {
+  from {
+    display: none;
+    opacity: 0;
+  }
+  to {
+    display: block;
+    opacity: 1;
+  }
+}
+
+.sMConfigOption:not(.selected):hover {
+  background: var(--hoverColor);
+}
+
+#panelSelect {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 10rem;
+  position: absolute;
+  background-color: rgb(210, 225, 255);
+  top: -10.5rem;
+  left: 0;
+  padding: 0.25rem;
+  z-index: 2;
+}
+
+#panelOptions,
+#numPanelOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#panelOptions {
+  gap: 0.1rem;
+}
+
+#panelNumber {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0.1rem;
+  border-radius: 0;
+  width: 3rem;
+}
+
+.hitbox {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+}
+
+.listNav > .scrollMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 10rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  gap: 4px;
+  margin-left: -8px;
+}
+
+/* Minimalistic scrollbar for WebKit browsers */
+.scrollMenu::-webkit-scrollbar {
+  height: 6px; /* Adjust thickness as needed */
+}
+
+.scrollMenu::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Adjust color and opacity */
+  border-radius: 3px; /* Make it rectangular with slightly rounded corners */
+}
+
+.scrollMenu::-webkit-scrollbar-track {
+  background-color: transparent; /* Make the track invisible or a subtle color */
+}
+
+/* Minimalistic scrollbar for Firefox */
+/* Note: Firefox styling options are more limited */
+.scrollMenu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* thumb track */
+}
+
+.sMModalContent > div:not(#sMSPSettings),
+#sMSPSettings > div {
+  width: max-content;
+  flex-grow: 1;
+  height: 100%;
+}
+
+legend {
+  font-family: "Clearview 3W";
+  text-align: center;
+  width: max-content !important;
+  padding: 0 0.5rem;
+  font-size: 16px;
+}
+
+nav.sMModalBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  height: max-content;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0.6rem 0.6rem 0 0;
+}
+
+nav.sMModalBar *:not(.material-symbols-outlined, select, button, input) {
+  font-family: "Overpass";
+  font-size: 16px;
+  font-weight: 600;
+}
+
+nav.sMModalSubBar {
+  padding: 0.2rem;
+}
+
+div.sMModalTitle {
+  background-color: rgb(252, 207, 52);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  gap: 0.25rem;
+  margin-right: 0.5rem;
+  border-radius: 0.6rem 0 0 0;
+}
+
+div.sMModalTab {
+  padding: 0rem 0.5rem;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+div.sMModalTab.selected {
+  text-decoration: underline;
+}
+
+div.sMModalTitle *,
+div.sMModalTitle {
+  font-size: 16px;
+}
+
+.tabHidden {
+  display: none !important;
+}
+
+div#sMPanelPadding,
+div#sMExitTabSetting,
+div#sMSPSettings,
+div#sMAPL,
+div#sMExitTabStyles {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: start;
+  gap: 1rem;
+}
+
+input[type="number"] {
+  border: 0;
+  margin: 0.25rem;
+}
+
+.listNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.listNavOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.listNavOptions button,
+.listNavOptions label {
+  width: max-content;
+  position: relative;
+}
+
+#exitTabNumber,
+#subPanelNumber {
+  width: 3rem;
+}
+
+.listNav .scrollMenu {
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: left;
+  width: 10rem;
+}
+
+.resetClass {
+  background-color: rgb(255, 0, 0, 20%);
+  padding: 0.3rem;
+}
+
+.resetClass:hover {
+  background-color: rgb(255, 0, 0, 30%);
+}
+
+div#modalHolder {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+::backdrop {
+  background-color: rgb(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+dialog {
+  border: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#welcomeToSignMaker {
+  width: 70%;
+}
+
+#welcomeToSignMaker img {
+  width: 100%;
+}
+
+div.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid black;
+}
+
+#downloadContent .options {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+div.options button {
+  padding: 0.5rem;
+  font-size: 1.25rem;
+}
+
+div.options a {
+  color: black;
+}
+
+#fileTypeOptions button {
+  flex-grow: 1;
+}
+
+.SMSPNewElementHolder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgb(255, 255, 255, 0.4);
+}
+
+.SMSPNewElementHolder > span {
+  font-size: 0.7rem;
+}
+
+/* OLD - TO CONFIGURE */
+
+.active,
+.exitTabSelect.active {
+  background-color: rgb(200, 200, 200);
+}
+
+input,
+select,
+textarea {
+  width: 6rem;
+  margin: 0.25rem;
+  padding: 0.25rem;
+  border: none;
+  font-family: "Inter";
+  font-weight: 600;
+  transition: 0.15s ease-in-out;
+}
+
+label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: 7.5rem;
+  text-align: right;
+  display: inline-block;
+}
+
+label:hover {
+  font-weight: 600;
+}
+
+select {
+  background: rgb(240, 240, 240) url(../img/other-symbols/select.svg) no-repeat
+    right;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 17px;
+
+  cursor: pointer;
+}
+
+select:hover,
+select:focus {
+  background-color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+button,
+input[type="button"] {
+  display: flex;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  border: 0;
+  width: max-content;
+  background-color: rgb(240, 240, 240);
+  font-family: "Inter";
+  font-weight: 500;
+}
+
+button:not(.textEditorBlock, .sMControlRow .sMConfigOption):enabled:hover,
+input[type="button"]:not(
+    .textEditorblock,
+    .sMControlRow,
+    .sMConfigOption
+  ):enabled:hover {
+  background-color: var(--selectedColor);
+}
+
+button:disabled,
+input[type="button"]:disabled {
+  cursor: default;
+}
+
+.sMControlRow:hover {
+  cursor: pointer;
+}
+
+textarea {
+  min-width: 15rem;
+  min-height: 5rem;
+  max-width: 25rem;
+  transition: none;
+}
+
+#shieldBacksLabel {
+  width: auto;
+}
+
+.shields div {
+  border-radius: 0.25rem;
+
+  width: -moz-max-content;
+  width: -webkit-max-content;
+  width: intrinsic;
+}
+.shields div:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.33);
+}
+
+.shields div:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.11);
+}
+
+.shields label,
+.shields select:first-of-type {
+  width: auto;
+}
+.shields label {
+  margin: 0;
+}
+
+.clear:hover {
+  background-color: rgb(247, 176, 176) !important;
+}
+
+#controlCitiesLabel {
+  position: relative;
+  top: -5rem;
+}
+
+#guideArrowLanes {
+  width: 2.25rem;
+}
+
+#actionMessage,
+#g_actionMessage {
+  width: 15.75rem;
+}
+
+#guideArrowLanes {
+  width: 3rem;
+}
+
+#oSNum {
+  margin-left: 8.5rem;
+}
+
+#currentPanel {
+  width: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.4)
+  );
+  border-radius: 0rem 0rem 1rem 2rem;
+  padding: 0.4rem;
+  display: table;
+}
+
+#panelNumber {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0.1rem;
+  border-radius: 0;
+  width: 3rem;
+}
+
+#panelNumberTitle {
+  font-size: 1.3rem;
+  padding: 0.2rem;
+}
+
+#downloadContent {
+  background-color: rgb(226 236 255);
+  padding: 1rem;
+  width: 90%;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  height: 50%;
+}
+
+#downloadContents {
+  width: 50%;
+  position: relative;
+}
+
+#fileTypeOptions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid black;
+}
+
+#fileTypeOptions button {
+  padding: 0.75rem;
+}
+
+#downloadPreview {
+  width: 49%;
+  display: inline-block;
+  background-color: rgb(144, 181, 255);
+  overflow: auto;
+  text-align: center;
+}
+
+#PNG,
+#SVG {
+  width: 15%;
+}
+
+#singularPanel {
+  display: none;
+}
+
+.activated {
+  background-color: rgb(200, 200, 200);
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.controlTextArea {
+  font-size: 0.8rem;
+  font-family: "Clearview 4W";
+}
+
+.radioOption {
+  width: auto;
+}
+
+.exitTabSelect {
+  background: rgb(230, 230, 230);
+  width: auto;
+  border-radius: 0rem;
+}
+
+.exitTabSelect:hover {
+  background: rgb(200, 200, 200);
+}
+
+nav#sMConfigBar.invisible {
+  left: 1rem;
+  transform: none;
+}
+
+nav#SMConfigBar.invisible > .sMConfigOption:not(#hideConfig) {
+  display: none;
+}
+
+#smSPTextEditor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#sMSPCreate,
+#smSPElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  background-color: rgb(255, 255, 255, 0.3);
+  width: 100%;
+}
+
+#smSPElement {
+  gap: 1rem;
+}
+
+#sMSPCreate > span,
+#sMSPElement > span {
+  font-size: 16px;
+}
+
+#sMSPTextList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: rgb(255, 255, 255, 0.15);
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.smControlRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgb(255, 255, 255, 0.15);
+  padding: 0.25rem;
+  width: 100%;
+  height: m;
+}
+
+:root[data-theme="dark"] .smControlRow.selected {
+  background-color: rgb(255, 255, 255, 0.25);
+}
+
+.smControlRow.selected {
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
+.smControlRow * {
+  font-size: 16px;
+  padding: 4px 8px;
+}
+.smcontrolrow *.selected {
+  text-decoration: underline;
+}
+
+.sdCtrlText {
+  background-color: var(--green);
+  color: white;
+}
+
+.sdBlocker {
+  background-color: white;
+}
+
+.sdShield {
+  background-color: var(--blue);
+  color: white;
+}
+
+.sdAdvisory {
+  background-color: var(--yellow);
+  border-radius: 8px;
+}
+
+.sdIcon {
+  background-color: var(--brown);
+  color: white;
+}
+
+.sdActionMessage {
+  background-color: var(--green);
+  color: white;
+}
+
+#smSPProperties {
+  background-color: rgb(255, 255, 255, 0.225);
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.sdTextEditorWide {
+  width: 70%;
+}
+
+.sdTextEditorSmall {
+  width: 3rem;
+}
+
+.hidden {
+  display: none;
+}

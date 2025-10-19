@@ -6,7 +6,6 @@
 Thumbs.db
 
 node_modules
-<<<<<<< HEAD
 dist
 
 # files
@@ -16,7 +15,6 @@ dist
 
 # Tauri build artifacts
 /src-tauri/target/
-/src-tauri/tauri.conf.json
 
 # Output builds
 /dist/
