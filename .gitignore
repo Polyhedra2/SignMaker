@@ -12,6 +12,19 @@ dist
 # files
 build.sh
 .vscode
-=======
 dist
->>>>>>> parent of 5389540 (modified package so that it actually fucking works)
+
+# Tauri build artifacts
+/src-tauri/target/
+/src-tauri/tauri.conf.json
+
+# Output builds
+/dist/
+*.app
+*.dmg
+*.exe
+*.deb
+*.msi
+
+# Rust build files
+**/target/
