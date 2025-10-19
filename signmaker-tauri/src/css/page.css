@@ -224,20 +224,12 @@
 	--red: rgb(255, 0, 0);
 }
 
-:root[data-theme=light] {
-	--backgroundColor: #90b5ff;
+:root {
+	--backgroundColor: rgb(0, 95, 77);
 	--hotbarColor: rgb(210, 225, 255);
 	--textColor: rgb(0,0,0);
-	--selectedColor: rgb(255,255,255);
-	--hoverColor: rgb(255,255,255, .5);
-}
-
-:root[data-theme=dark] {
-	--backgroundColor: #0f1a37;
-	--hotbarColor: #1d3678;
-	--textColor: #f7f9fb;
-	--selectedColor: rgb(255,255,255,.25);
-	--hoverColor: #18274e;
+	--selectedColor: #0a9378;
+	--hoverColor: #0a9378;
 }
 
 * {

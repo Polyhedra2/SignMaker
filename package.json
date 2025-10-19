@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "nvm": "^0.0.4"
+  },
+  "name": "signmaker-tauri",
+  "version": "0.0.1",
+  "description": "Highway Sign Maker but now made with Tauri",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Polygon, JKPotato Computer",
+  "license": "GPL-3.0-or-later"
+}
