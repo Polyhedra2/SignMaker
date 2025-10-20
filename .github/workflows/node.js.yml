@@ -1,5 +1,4 @@
 name: Build Tauri app
-run: npx tauri build
 on: [push]
 
 jobs:
@@ -8,8 +7,33 @@ jobs:
     strategy:
       matrix:
         platform: [macos-latest, ubuntu-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      # 🐧 Linux system deps
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
+
+      # 📦 Install your Node dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 🚀 Build & release using Tauri Action
       - uses: tauri-apps/tauri-action@v0
         with:
           tagName: signmaker-v__VERSION__
