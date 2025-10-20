@@ -10,14 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - uses: dtolnay/rust-toolchain@stable
 
-      # 🐧 Linux system deps
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-latest'
         run: |
@@ -29,12 +26,14 @@ jobs:
             librsvg2-dev \
             patchelf
 
-      # 📦 Install your Node dependencies
+      # 👇 ensures Tauri CLI installs correctly
       - name: Install dependencies
-        run: npm install
+        run: npm install --ignore-scripts=false
 
-      # 🚀 Build & release using Tauri Action
       - uses: tauri-apps/tauri-action@v0
+        env:
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           tagName: signmaker-v__VERSION__
           releaseName: "Sign Maker v__VERSION__"
